@@ -1,34 +1,33 @@
-const { makeContractDeploy, broadcastTransaction, AnchorMode, createStacksPrivateKey, getAddressFromPrivateKey, TransactionVersion } = require('@stacks/transactions');
-const { StacksTestnet } = require('@stacks/network');
+const { makeContractDeploy, broadcastTransaction, AnchorMode, privateKeyToAddress } = require('@stacks/transactions');
+const { STACKS_TESTNET } = require('@stacks/network');
 const { generateWallet } = require('@stacks/wallet-sdk');
 const fs = require('fs');
 
 // Configuration
-const network = new StacksTestnet();
+const network = STACKS_TESTNET;
 const mnemonic = "twice kind fence tip hidden tilt action fragile skin nothing glory cousin green tomorrow spring wrist shed math olympic multiply hip blue scout claw";
 const contractName = "passkey-wallet";
 
 async function deployContract() {
   console.log("🚀 DEPLOYING PASSKEY-WALLET CONTRACT");
   console.log("=".repeat(60));
-  
+
   // Read contract
   const contractSource = fs.readFileSync('contracts/passkey-wallet.clar', 'utf8');
   console.log(`✅ Contract loaded: ${contractSource.length} bytes`);
-  
+
   try {
     // Generate wallet from mnemonic
     const wallet = await generateWallet({
       secretKey: mnemonic,
       password: ''
     });
-    
+
     const account = wallet.accounts[0];
     const senderKey = account.stxPrivateKey;
-    
-    // Get address
-    const privKey = createStacksPrivateKey(senderKey);
-    const senderAddress = getAddressFromPrivateKey(senderKey, TransactionVersion.Testnet);
+
+    // Derive testnet address from private key
+    const senderAddress = privateKeyToAddress(senderKey);
     
     console.log(`📍 Deployer: ${senderAddress}`);
     

@@ -1,0 +1,87 @@
+{
+  "chainhooks": [
+    {
+      "uuid": "passkey-wallet-deposit-events",
+      "name": "Passkey Wallet Deposit Events",
+      "version": 1,
+      "networks": {
+        "testnet": {
+          "if_this": {
+            "scope": "print_event",
+            "contract_identifier": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet",
+            "contains": "event: deposit"
+          },
+          "then_that": {
+            "http_post": {
+              "url": "${WEBHOOK_URL}/deposit",
+              "authorization_header": "Bearer ${CHAINHOOK_API_KEY}"
+            }
+          },
+          "start_block": 0
+        }
+      }
+    },
+    {
+      "uuid": "passkey-wallet-withdraw-events",
+      "name": "Passkey Wallet Withdraw Events",
+      "version": 1,
+      "networks": {
+        "testnet": {
+          "if_this": {
+            "scope": "print_event",
+            "contract_identifier": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet",
+            "contains": "event: withdraw"
+          },
+          "then_that": {
+            "http_post": {
+              "url": "${WEBHOOK_URL}/withdraw",
+              "authorization_header": "Bearer ${CHAINHOOK_API_KEY}"
+            }
+          },
+          "start_block": 0
+        }
+      }
+    },
+    {
+      "uuid": "passkey-wallet-register-events",
+      "name": "Passkey Wallet Registration Events",
+      "version": 1,
+      "networks": {
+        "testnet": {
+          "if_this": {
+            "scope": "print_event",
+            "contract_identifier": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet",
+            "contains": "event: wallet_registered"
+          },
+          "then_that": {
+            "http_post": {
+              "url": "${WEBHOOK_URL}/register",
+              "authorization_header": "Bearer ${CHAINHOOK_API_KEY}"
+            }
+          },
+          "start_block": 0
+        }
+      }
+    },
+    {
+      "uuid": "passkey-wallet-all-transactions",
+      "name": "Passkey Wallet All Contract Calls",
+      "version": 1,
+      "networks": {
+        "testnet": {
+          "if_this": {
+            "scope": "contract_call",
+            "contract_identifier": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet"
+          },
+          "then_that": {
+            "http_post": {
+              "url": "${WEBHOOK_URL}/contract-call",
+              "authorization_header": "Bearer ${CHAINHOOK_API_KEY}"
+            }
+          },
+          "start_block": 0
+        }
+      }
+    }
+  ]
+}
