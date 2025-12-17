@@ -1,0 +1,20 @@
+{
+  "contract": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet",
+  "network": "testnet",
+  "timestamp": "2025-12-17T02:19:53.013Z",
+  "statistics": {
+    "deposits": 0,
+    "withdrawals": 0,
+    "registrations": 0,
+    "totalVolume": 0,
+    "uniqueUsers": 0,
+    "fees": 0
+  },
+  "events": [],
+  "builderChallenge": {
+    "chainhooksUsed": true,
+    "usersGenerated": 0,
+    "feesGenerated": 0,
+    "note": "This project uses Hiro Chainhooks for real-time event monitoring"
+  }
+}

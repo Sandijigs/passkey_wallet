@@ -1,0 +1,44 @@
+{
+  "name": "passkey-wallet",
+  "version": "1.0.0",
+  "description": "WebAuthn/Passkey-based smart contract wallet on Stacks with Chainhooks integration",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "node deploy.js",
+    "monitor": "node chainhooks/monitor.js",
+    "interact": "node scripts/interact.js",
+    "test": "clarinet test",
+    "check": "clarinet check",
+    "console": "clarinet console"
+  },
+  "keywords": [
+    "stacks",
+    "clarity",
+    "blockchain",
+    "smart-contract",
+    "passkey",
+    "webauthn",
+    "wallet",
+    "chainhooks",
+    "builder-challenge"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@hirosystems/chainhooks-client": "^1.0.3",
+    "@stacks/common": "^6.19.3",
+    "@stacks/network": "^6.19.3",
+    "@stacks/transactions": "^6.19.3",
+    "@stacks/wallet-sdk": "^6.5.6",
+    "c32check": "^2.0.1",
+    "dotenv": "^16.4.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/passkey-wallet"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/passkey-wallet/issues"
+  },
+  "homepage": "https://github.com/yourusername/passkey-wallet#readme"
+}

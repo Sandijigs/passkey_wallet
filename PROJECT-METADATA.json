@@ -1,0 +1,166 @@
+{
+  "project": {
+    "name": "Passkey Wallet",
+    "description": "A WebAuthn/Passkey-based smart contract wallet on Stacks blockchain using Clarity 4",
+    "version": "1.0.0",
+    "type": "stacks-smart-contract",
+    "challenge": "Stacks Builder Challenge",
+    "created": "2025-12-17",
+    "clarity_version": 4,
+    "epoch": "3.3"
+  },
+  "deployment": {
+    "network": "testnet",
+    "contract_address": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet",
+    "deployer": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R",
+    "deployment_tx": "d5ec4a16bd07dc281681245acc9def4c2b068e71fe4c3da934a96ffa70902c8a",
+    "deployment_timestamp": "2025-12-17T02:09:07.932Z",
+    "explorer_url": "https://explorer.hiro.so/txid/SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet?chain=testnet"
+  },
+  "smart_contract": {
+    "path": "contracts/passkey-wallet.clar",
+    "language": "Clarity",
+    "version": 4,
+    "features": [
+      "WebAuthn/Passkey authentication using secp256r1-verify",
+      "Multi-signature wallet support",
+      "STX deposit and withdrawal",
+      "Transaction history logging",
+      "Event emission for monitoring"
+    ],
+    "public_functions": [
+      {
+        "name": "register-wallet",
+        "description": "Register a new passkey wallet with public key and metadata",
+        "parameters": [
+          {"name": "wallet-id", "type": "buff 32"},
+          {"name": "public-key-x", "type": "buff 32"},
+          {"name": "public-key-y", "type": "buff 32"},
+          {"name": "metadata", "type": "string-ascii 256"}
+        ],
+        "returns": "response bool uint"
+      },
+      {
+        "name": "deposit",
+        "description": "Deposit STX into a registered wallet",
+        "parameters": [
+          {"name": "wallet-id", "type": "buff 32"},
+          {"name": "amount", "type": "uint"}
+        ],
+        "returns": "response uint uint"
+      },
+      {
+        "name": "withdraw",
+        "description": "Withdraw STX from wallet after passkey verification",
+        "parameters": [
+          {"name": "wallet-id", "type": "buff 32"},
+          {"name": "amount", "type": "uint"},
+          {"name": "recipient", "type": "principal"},
+          {"name": "message-hash", "type": "buff 32"},
+          {"name": "signature", "type": "buff 64"}
+        ],
+        "returns": "response uint uint"
+      },
+      {
+        "name": "add-signer",
+        "description": "Add additional signer to wallet (multi-sig)",
+        "parameters": [
+          {"name": "wallet-id", "type": "buff 32"},
+          {"name": "new-signer", "type": "principal"}
+        ],
+        "returns": "response bool uint"
+      }
+    ],
+    "read_only_functions": [
+      {
+        "name": "get-wallet",
+        "description": "Get wallet information by ID",
+        "parameters": [{"name": "wallet-id", "type": "buff 32"}],
+        "returns": "optional wallet-data"
+      },
+      {
+        "name": "get-balance",
+        "description": "Get wallet balance",
+        "parameters": [{"name": "wallet-id", "type": "buff 32"}],
+        "returns": "wallet balance data"
+      },
+      {
+        "name": "get-transaction",
+        "description": "Get specific transaction by wallet and index",
+        "parameters": [
+          {"name": "wallet-id", "type": "buff 32"},
+          {"name": "tx-index", "type": "uint"}
+        ],
+        "returns": "optional transaction-data"
+      }
+    ],
+    "events": [
+      {
+        "name": "wallet_registered",
+        "fields": ["wallet-id", "owner", "timestamp"]
+      },
+      {
+        "name": "deposit",
+        "fields": ["wallet-id", "amount", "sender"]
+      },
+      {
+        "name": "withdraw",
+        "fields": ["wallet-id", "amount", "recipient", "verified"]
+      }
+    ]
+  },
+  "chainhooks_integration": {
+    "enabled": true,
+    "package": "@hirosystems/chainhooks-client",
+    "predicates_file": "chainhooks/predicates.json",
+    "monitor_script": "chainhooks/monitor.js",
+    "tracked_events": [
+      "deposit",
+      "withdraw",
+      "wallet_registered",
+      "contract_call"
+    ],
+    "documentation": "https://www.npmjs.com/package/@hirosystems/chainhooks-client"
+  },
+  "builder_challenge_metrics": {
+    "chainhooks_used": true,
+    "metrics_tracked": [
+      "users_generated",
+      "fees_generated",
+      "transaction_volume",
+      "unique_wallets",
+      "github_contributions"
+    ],
+    "monitoring_enabled": true
+  },
+  "scripts": {
+    "deploy": "node deploy.js",
+    "monitor": "node chainhooks/monitor.js",
+    "interact": "node scripts/interact.js",
+    "test": "clarinet test",
+    "check": "clarinet check"
+  },
+  "ai_agent_instructions": {
+    "how_to_interact": "Use scripts/interact.js to call contract functions programmatically",
+    "contract_address": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet",
+    "network": "testnet",
+    "api_endpoint": "https://api.testnet.hiro.so",
+    "key_files": [
+      "PROJECT-METADATA.json (this file)",
+      "DEPLOYMENT-SUCCESS.json (deployment details)",
+      "README.md (comprehensive documentation)",
+      "contracts/passkey-wallet.clar (smart contract source)",
+      "scripts/interact.js (interaction examples)",
+      "chainhooks/monitor.js (event monitoring)"
+    ]
+  },
+  "repository": {
+    "structure": {
+      "contracts/": "Smart contract source files",
+      "chainhooks/": "Chainhook predicates and monitoring",
+      "scripts/": "Deployment and interaction scripts",
+      "tests/": "Contract test files",
+      "settings/": "Network configuration files"
+    }
+  }
+}
