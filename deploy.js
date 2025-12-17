@@ -1,0 +1,92 @@
+const { makeContractDeploy, broadcastTransaction, AnchorMode, createStacksPrivateKey, getAddressFromPrivateKey, TransactionVersion } = require('@stacks/transactions');
+const { StacksTestnet } = require('@stacks/network');
+const { generateWallet } = require('@stacks/wallet-sdk');
+const fs = require('fs');
+
+// Configuration
+const network = new StacksTestnet();
+const mnemonic = "twice kind fence tip hidden tilt action fragile skin nothing glory cousin green tomorrow spring wrist shed math olympic multiply hip blue scout claw";
+const contractName = "passkey-wallet";
+
+async function deployContract() {
+  console.log("🚀 DEPLOYING PASSKEY-WALLET CONTRACT");
+  console.log("=".repeat(60));
+  
+  // Read contract
+  const contractSource = fs.readFileSync('contracts/passkey-wallet.clar', 'utf8');
+  console.log(`✅ Contract loaded: ${contractSource.length} bytes`);
+  
+  try {
+    // Generate wallet from mnemonic
+    const wallet = await generateWallet({
+      secretKey: mnemonic,
+      password: ''
+    });
+    
+    const account = wallet.accounts[0];
+    const senderKey = account.stxPrivateKey;
+    
+    // Get address
+    const privKey = createStacksPrivateKey(senderKey);
+    const senderAddress = getAddressFromPrivateKey(senderKey, TransactionVersion.Testnet);
+    
+    console.log(`📍 Deployer: ${senderAddress}`);
+    
+    // Get nonce
+    const response = await fetch(`https://api.testnet.hiro.so/v2/accounts/${senderAddress}?proof=0`);
+    const accountInfo = await response.json();
+    const nonce = accountInfo.nonce;
+    
+    console.log(`🔢 Nonce: ${nonce}`);
+    
+    // Create transaction
+    const txOptions = {
+      contractName,
+      codeBody: contractSource,
+      senderKey,
+      network,
+      anchorMode: AnchorMode.Any,
+      fee: 200000n, // 0.2 STX
+      nonce: BigInt(nonce)
+    };
+    
+    console.log("📝 Creating transaction...");
+    const transaction = await makeContractDeploy(txOptions);
+    
+    console.log("📡 Broadcasting transaction...");
+    const broadcastResponse = await broadcastTransaction({transaction, network});
+    
+    const txId = broadcastResponse.txid || broadcastResponse;
+    
+    console.log("");
+    console.log("=".repeat(60));
+    console.log("🎉 DEPLOYMENT SUCCESSFUL!");
+    console.log("=".repeat(60));
+    console.log(`Transaction ID: ${txId}`);
+    console.log(`Explorer: https://explorer.hiro.so/txid/${txId}?chain=testnet`);
+    console.log(`Contract: https://explorer.hiro.so/txid/${senderAddress}.${contractName}?chain=testnet`);
+    console.log("=".repeat(60));
+    
+    // Save deployment info
+    const deploymentInfo = {
+      txId,
+      contractName,
+      deployer: senderAddress,
+      network: "testnet",
+      timestamp: new Date().toISOString(),
+      explorerUrl: `https://explorer.hiro.so/txid/${txId}?chain=testnet`,
+      contractUrl: `https://explorer.hiro.so/txid/${senderAddress}.${contractName}?chain=testnet`
+    };
+    
+    fs.writeFileSync('DEPLOYMENT-SUCCESS.json', JSON.stringify(deploymentInfo, null, 2));
+    console.log("\n✅ Deployment info saved to: DEPLOYMENT-SUCCESS.json");
+    
+  } catch (error) {
+    console.error("\n❌ DEPLOYMENT FAILED:");
+    console.error(error.message);
+    console.error(error.stack);
+    process.exit(1);
+  }
+}
+
+deployContract();
