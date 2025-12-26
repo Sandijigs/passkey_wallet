@@ -1,9 +1,9 @@
 {
-  "txId": "d5ec4a16bd07dc281681245acc9def4c2b068e71fe4c3da934a96ffa70902c8a",
+  "txId": "0a5155ce5be30301f259999819214ab750e8b1801eb7f3496a316cd92c76337c",
   "contractName": "passkey-wallet",
-  "deployer": "SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R",
+  "deployer": "SP1WPQWDNG2H8VMG93PW3JM74SGXVTA38EVCH7GYS",
   "network": "testnet",
-  "timestamp": "2025-12-17T02:09:07.932Z",
-  "explorerUrl": "https://explorer.hiro.so/txid/d5ec4a16bd07dc281681245acc9def4c2b068e71fe4c3da934a96ffa70902c8a?chain=testnet",
-  "contractUrl": "https://explorer.hiro.so/txid/SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet?chain=testnet"
+  "timestamp": "2025-12-26T11:41:51.198Z",
+  "explorerUrl": "https://explorer.hiro.so/txid/0a5155ce5be30301f259999819214ab750e8b1801eb7f3496a316cd92c76337c?chain=testnet",
+  "contractUrl": "https://explorer.hiro.so/txid/SP1WPQWDNG2H8VMG93PW3JM74SGXVTA38EVCH7GYS.passkey-wallet?chain=testnet"
 }

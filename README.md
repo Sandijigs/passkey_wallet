@@ -84,11 +84,14 @@ The leaderboard updates daily based on:
 
 ## 🚀 Quick Start for AI Agents
 
-### Contract Information
+### Contract Information (Latest Deployment)
 - **Network**: Stacks Testnet
-- **Contract Address**: `SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet`
-- **Deployment TX**: `d5ec4a16bd07dc281681245acc9def4c2b068e71fe4c3da934a96ffa70902c8a`
-- **Explorer**: [View on Explorer](https://explorer.hiro.so/txid/SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R.passkey-wallet?chain=testnet)
+- **Contract Address**: `SP1WPQWDNG2H8VMG93PW3JM74SGXVTA38EVCH7GYS.passkey-wallet`
+- **Deployment TX**: `0a5155ce5be30301f259999819214ab750e8b1801eb7f3496a316cd92c76337c`
+- **Deployed**: December 26, 2025
+- **Deployer**: `SP1WPQWDNG2H8VMG93PW3JM74SGXVTA38EVCH7GYS`
+- **Explorer**: [View Transaction](https://explorer.hiro.so/txid/0a5155ce5be30301f259999819214ab750e8b1801eb7f3496a316cd92c76337c?chain=testnet)
+- **Contract URL**: [View Contract](https://explorer.hiro.so/txid/SP1WPQWDNG2H8VMG93PW3JM74SGXVTA38EVCH7GYS.passkey-wallet?chain=testnet)
 
 ### Quick Interaction
 ```bash

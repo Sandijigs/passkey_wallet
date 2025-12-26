@@ -19,11 +19,12 @@ export const NETWORK_CONFIG = {
 export const NETWORK = NETWORK_CONFIG.testnet;
 export const NETWORK_NAME = 'testnet';
 
-// Contract Configuration
+// Contract Configuration (Updated December 26, 2025 - Final Deployment)
 export const CONTRACT_CONFIG = {
-  address: 'SP1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRCBGD7R',
+  address: 'SP1WPQWDNG2H8VMG93PW3JM74SGXVTA38EVCH7GYS',
   name: 'passkey-wallet',
   network: NETWORK,
+  deploymentTx: '0a5155ce5be30301f259999819214ab750e8b1801eb7f3496a316cd92c76337c',
 };
 
 // App Configuration for Stacks Connect

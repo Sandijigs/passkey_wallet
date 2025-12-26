@@ -2,11 +2,18 @@ const { makeContractDeploy, broadcastTransaction, AnchorMode, privateKeyToAddres
 const { STACKS_TESTNET } = require('@stacks/network');
 const { generateWallet } = require('@stacks/wallet-sdk');
 const fs = require('fs');
+require('dotenv').config();
 
-// Configuration
+// Configuration from .env
 const network = STACKS_TESTNET;
-const mnemonic = "twice kind fence tip hidden tilt action fragile skin nothing glory cousin green tomorrow spring wrist shed math olympic multiply hip blue scout claw";
+const mnemonic = process.env.MNEMONIC;
 const contractName = "passkey-wallet";
+
+// Validate environment variables
+if (!mnemonic) {
+  console.error("❌ ERROR: MNEMONIC not found in .env file");
+  process.exit(1);
+}
 
 async function deployContract() {
   console.log("🚀 DEPLOYING PASSKEY-WALLET CONTRACT");
